@@ -1,0 +1,13 @@
+Z:\Robert Repos\Clippp\bin\Debug\Clippp.exe.config
+Z:\Robert Repos\Clippp\bin\Debug\Clippp.exe
+Z:\Robert Repos\Clippp\bin\Debug\Clippp.pdb
+Z:\Robert Repos\Clippp\obj\Debug\Clippp.csprojAssemblyReference.cache
+Z:\Robert Repos\Clippp\obj\Debug\Clippp.Properties.Resources.resources
+Z:\Robert Repos\Clippp\obj\Debug\Clippp.csproj.GenerateResource.cache
+Z:\Robert Repos\Clippp\obj\Debug\Clippp.csproj.CoreCompileInputs.cache
+Z:\Robert Repos\Clippp\obj\Debug\Clippp.exe
+Z:\Robert Repos\Clippp\obj\Debug\Clippp.pdb
+Z:\Robert Repos\Clippp\bin\Debug\SharpClipboard.dll
+Z:\Robert Repos\Clippp\bin\Debug\SharpClipboard.xml
+Z:\Robert Repos\Clippp\obj\Debug\Clippp.csproj.CopyComplete
+Z:\Robert Repos\Clippp\obj\Debug\Clippp.MainForm.resources
