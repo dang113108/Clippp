@@ -33,10 +33,11 @@ namespace Clippp
             this.ClipboardListener = new WK.Libraries.SharpClipboardNS.SharpClipboard(this.components);
             this.copyHistory = new System.Windows.Forms.ListBox();
             this.quickPasteMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.測試ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.測試111ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.這也是測試ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quickPasteMenu.SuspendLayout();
+            this.folderSelector = new System.Windows.Forms.ListBox();
+            this.itemSelector = new System.Windows.Forms.ListBox();
+            this.copyTextEditor = new System.Windows.Forms.TextBox();
+            this.addFolderButton = new System.Windows.Forms.Button();
+            this.addItemButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ClipboardListener
@@ -54,54 +55,91 @@ namespace Clippp
             // copyHistory
             // 
             this.copyHistory.FormattingEnabled = true;
-            this.copyHistory.ItemHeight = 12;
+            this.copyHistory.ItemHeight = 16;
             this.copyHistory.Items.AddRange(new object[] {
             "Your copy history"});
-            this.copyHistory.Location = new System.Drawing.Point(12, 12);
+            this.copyHistory.Location = new System.Drawing.Point(723, 12);
+            this.copyHistory.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.copyHistory.Name = "copyHistory";
-            this.copyHistory.Size = new System.Drawing.Size(776, 424);
+            this.copyHistory.Size = new System.Drawing.Size(229, 404);
             this.copyHistory.TabIndex = 0;
             this.copyHistory.SelectedIndexChanged += new System.EventHandler(this.copyHistory_SelectedIndexChanged);
             // 
             // quickPasteMenu
             // 
-            this.quickPasteMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.測試ToolStripMenuItem,
-            this.這也是測試ToolStripMenuItem});
             this.quickPasteMenu.Name = "quickPasteMenu";
-            this.quickPasteMenu.Size = new System.Drawing.Size(135, 48);
+            this.quickPasteMenu.Size = new System.Drawing.Size(61, 4);
             // 
-            // 測試ToolStripMenuItem
+            // folderSelector
             // 
-            this.測試ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.測試111ToolStripMenuItem});
-            this.測試ToolStripMenuItem.Name = "測試ToolStripMenuItem";
-            this.測試ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.測試ToolStripMenuItem.Text = "測試";
+            this.folderSelector.FormattingEnabled = true;
+            this.folderSelector.ItemHeight = 16;
+            this.folderSelector.Location = new System.Drawing.Point(12, 12);
+            this.folderSelector.Name = "folderSelector";
+            this.folderSelector.Size = new System.Drawing.Size(120, 404);
+            this.folderSelector.TabIndex = 1;
+            this.folderSelector.SelectedIndexChanged += new System.EventHandler(this.folderSelector_SelectedIndexChanged);
             // 
-            // 測試111ToolStripMenuItem
+            // itemSelector
             // 
-            this.測試111ToolStripMenuItem.Name = "測試111ToolStripMenuItem";
-            this.測試111ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.測試111ToolStripMenuItem.Text = "測試111";
+            this.itemSelector.FormattingEnabled = true;
+            this.itemSelector.ItemHeight = 16;
+            this.itemSelector.Location = new System.Drawing.Point(138, 12);
+            this.itemSelector.Name = "itemSelector";
+            this.itemSelector.Size = new System.Drawing.Size(149, 404);
+            this.itemSelector.TabIndex = 2;
+            this.itemSelector.SelectedIndexChanged += new System.EventHandler(this.itemSelector_SelectedIndexChanged);
             // 
-            // 這也是測試ToolStripMenuItem
+            // copyTextEditor
             // 
-            this.這也是測試ToolStripMenuItem.Name = "這也是測試ToolStripMenuItem";
-            this.這也是測試ToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.這也是測試ToolStripMenuItem.Text = "這也是測試";
+            this.copyTextEditor.Location = new System.Drawing.Point(286, 12);
+            this.copyTextEditor.Multiline = true;
+            this.copyTextEditor.Name = "copyTextEditor";
+            this.copyTextEditor.Size = new System.Drawing.Size(415, 404);
+            this.copyTextEditor.TabIndex = 3;
+            this.copyTextEditor.Leave += new System.EventHandler(this.copyTextEditor_FocusLeave);
+            // 
+            // addFolderButton
+            // 
+            this.addFolderButton.Location = new System.Drawing.Point(12, 422);
+            this.addFolderButton.Name = "addFolderButton";
+            this.addFolderButton.Size = new System.Drawing.Size(30, 23);
+            this.addFolderButton.TabIndex = 4;
+            this.addFolderButton.Text = " +";
+            this.addFolderButton.UseVisualStyleBackColor = true;
+            this.addFolderButton.Click += new System.EventHandler(this.addFolderButton_Click);
+            // 
+            // addItemButton
+            // 
+            this.addItemButton.Enabled = false;
+            this.addItemButton.Location = new System.Drawing.Point(138, 422);
+            this.addItemButton.Name = "addItemButton";
+            this.addItemButton.Size = new System.Drawing.Size(30, 23);
+            this.addItemButton.TabIndex = 5;
+            this.addItemButton.Text = "+";
+            this.addItemButton.UseVisualStyleBackColor = true;
+            this.addItemButton.Click += new System.EventHandler(this.addItemButton_Click);
             // 
             // mainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(966, 450);
+            this.Controls.Add(this.addItemButton);
+            this.Controls.Add(this.addFolderButton);
+            this.Controls.Add(this.copyTextEditor);
+            this.Controls.Add(this.itemSelector);
+            this.Controls.Add(this.folderSelector);
             this.Controls.Add(this.copyHistory);
+            this.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
             this.Name = "mainForm";
-            this.Text = "Form1";
+            this.ShowIcon = false;
+            this.Text = "Clippp";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.quickPasteMenu.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -110,9 +148,11 @@ namespace Clippp
         private WK.Libraries.SharpClipboardNS.SharpClipboard ClipboardListener;
         private System.Windows.Forms.ListBox copyHistory;
         private System.Windows.Forms.ContextMenuStrip quickPasteMenu;
-        private System.Windows.Forms.ToolStripMenuItem 測試ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 測試111ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 這也是測試ToolStripMenuItem;
+        private System.Windows.Forms.ListBox folderSelector;
+        private System.Windows.Forms.ListBox itemSelector;
+        private System.Windows.Forms.TextBox copyTextEditor;
+        private System.Windows.Forms.Button addFolderButton;
+        private System.Windows.Forms.Button addItemButton;
     }
 }
 
