@@ -1,1 +1,0 @@
-robot -i setup -e disable suites

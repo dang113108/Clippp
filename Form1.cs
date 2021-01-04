@@ -122,7 +122,9 @@ namespace Clippp
                 folderName = Path.Combine(folderName, categoryName);
                 Directory.CreateDirectory(folderName);
                 folderSelector.Items.Add(categoryName);
-                quickPasteMenu.Items.Add(categoryName);
+                submenu = new ToolStripMenuItem(categoryName) { Name = categoryName };
+                submenu.Text = categoryName;
+                quickPasteMenu.Items.Add(submenu);
             }
         }
 
@@ -137,7 +139,7 @@ namespace Clippp
             {
                 FileInfo info = new FileInfo(folder);
                 folderSelector.Items.Add(info.Name);
-                submenu = new ToolStripMenuItem();
+                submenu = new ToolStripMenuItem(info.Name) {  Name = info.Name };
                 submenu.Text = info.Name;
 
                 string categoryFolder = Path.Combine(tmpFolder, info.Name);
@@ -148,7 +150,7 @@ namespace Clippp
                     string txtName = txt_info.Name;
                     int txtLength = txtName.Length;
                     string originName = txtName.Substring(0, txtLength - 4);
-                    item = new ToolStripMenuItem();
+                    item = new ToolStripMenuItem($"{info.Name}_{originName}") {  Name = $"{info.Name}_{originName}" };
                     item.Text = originName;
                     item.Click += new EventHandler(subitem_Click);
                     submenu.DropDownItems.Add(item);
@@ -161,6 +163,7 @@ namespace Clippp
         {
             if (folderSelector.SelectedItem != null)
             {
+                removeFolderButton.Enabled = true;
                 addItemButton.Enabled = true;
                 itemSelector.Items.Clear();
                 copyTextEditor.Clear();
@@ -181,6 +184,7 @@ namespace Clippp
         {
             if (itemSelector.SelectedItem != null)
             {
+                removeItemButton.Enabled = true;
                 copyTextEditor.Clear();
                 string folderName = folderSelector.SelectedItem.ToString();
                 string itemName = itemSelector.SelectedItem.ToString();
@@ -199,13 +203,15 @@ namespace Clippp
                 string folderName = folderSelector.SelectedItem.ToString();
                 string projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
                 string itemPath = Path.Combine(projectPath, $"tmp_folder\\{folderName}\\{itemName}.txt");
-                File.Create(itemPath);
+                File.Create(itemPath).Close();
                 itemSelector.Items.Add(itemName);
                 foreach (ToolStripMenuItem subitem in quickPasteMenu.Items)
                 {
                     if (subitem.Text == folderName)
                     {
-                        item = new ToolStripMenuItem();
+                        var item_name = $"{folderName}_{itemName}";
+                        Console.WriteLine(item_name);
+                        item = new ToolStripMenuItem(item_name) { Name = item_name };
                         item.Text = itemName;
                         item.Click += new EventHandler(subitem_Click);
                         subitem.DropDownItems.Add(item);
@@ -218,11 +224,44 @@ namespace Clippp
 
         private void copyTextEditor_FocusLeave(object sender, EventArgs e)
         {
+            if (itemSelector.SelectedItem != null)
+            {
+                string folderName = folderSelector.SelectedItem.ToString();
+                string itemName = itemSelector.SelectedItem.ToString();
+                string projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+                string currentItem = Path.Combine(projectPath, $"tmp_folder\\{folderName}\\{ itemName}.txt");
+                File.WriteAllText(currentItem, copyTextEditor.Text);
+            }
+        }
+
+        private void removeFolderButton_Click(object sender, EventArgs e)
+        {
+            string folderName = folderSelector.SelectedItem.ToString();
+            string projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            string currentFolder = Path.Combine(projectPath, $"tmp_folder\\{folderName}");
+            Directory.Delete(currentFolder, true);
+            folderSelector.Items.Remove(folderSelector.SelectedItems[0]);
+            quickPasteMenu.Items.RemoveByKey(folderName);
+            itemSelector.Items.Clear();
+            copyTextEditor.Clear();
+            removeFolderButton.Enabled = false;
+            addItemButton.Enabled = false;
+            removeItemButton.Enabled = false;
+        }
+
+        private void removeItemButton_Click(object sender, EventArgs e)
+        {
             string folderName = folderSelector.SelectedItem.ToString();
             string itemName = itemSelector.SelectedItem.ToString();
             string projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             string currentItem = Path.Combine(projectPath, $"tmp_folder\\{folderName}\\{ itemName}.txt");
-            File.WriteAllText(currentItem, copyTextEditor.Text);
+            File.Delete(currentItem);
+            itemSelector.Items.Remove(itemSelector.SelectedItems[0]);
+            int folderIndex = quickPasteMenu.Items.IndexOfKey(folderName);
+            ToolStripMenuItem subitem = (ToolStripMenuItem)quickPasteMenu.Items[folderIndex];
+            subitem.DropDownItems.RemoveByKey($"{folderName}_{itemName}");
+            copyTextEditor.Clear();
+            removeItemButton.Enabled = false;
         }
 
         public static DialogResult InputBox(string title, string promptText, ref string value)

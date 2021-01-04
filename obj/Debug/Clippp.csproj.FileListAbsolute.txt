@@ -11,3 +11,7 @@ Z:\Robert Repos\Clippp\bin\Debug\SharpClipboard.dll
 Z:\Robert Repos\Clippp\bin\Debug\SharpClipboard.xml
 Z:\Robert Repos\Clippp\obj\Debug\Clippp.csproj.CopyComplete
 Z:\Robert Repos\Clippp\obj\Debug\Clippp.MainForm.resources
+Z:\Robert Repos\Clippp\bin\Debug\Clippp.exe.manifest
+Z:\Robert Repos\Clippp\bin\Debug\Clippp.application
+Z:\Robert Repos\Clippp\obj\Debug\Clippp.exe.manifest
+Z:\Robert Repos\Clippp\obj\Debug\Clippp.application
